@@ -32,6 +32,6 @@ Route::post('/ajaxtest','TodoController@ajaxTest');
 
 
 
-Route::get('/try','TodoController@try');
+
 
 
