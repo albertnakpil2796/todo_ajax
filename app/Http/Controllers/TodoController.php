@@ -6,14 +6,14 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Todo;
-
+use Session;
 class TodoController extends Controller
 {
     //
     public function index(Request $request)
     {
-    
 
+    
     $todos = Todo::paginate(5);	
     $todox = $todos->currentPage();	
     	if($request->ajax()){
@@ -24,11 +24,19 @@ class TodoController extends Controller
 
     public function store(Request $request)
     {
+   
+    $this->validate($request, [
+        'title' => 'required|unique:todos|min:2',
+        'description' => 'required'
+    ]);
+
     	$todo = new Todo;
     	$todo->title = $request->get('title');
     	$todo->description = $request->get('description');
     	$todo->save();
 
+        return "$todo->title is Successfully Created";
+    
     }
 
     public function destroy(Request $request)
@@ -37,6 +45,7 @@ class TodoController extends Controller
     	$todo = Todo::find($id);
     	$todo->delete();
 
+        return "$todo->title is Successfully Deleted";
     }
 
     public function view(Request $request)
@@ -57,11 +66,18 @@ class TodoController extends Controller
 
     public function update(Request $request)
     {
+    $this->validate($request, [
+        'title' => 'required|unique:todos|min:2',
+        'description' => 'required'
+    ]);
+    
     	$id = $request->get("id");
     	$todo = Todo::find($id);
     	$todo->title = $request->get('title');
     	$todo->description = $request->get('description');
     	$todo->save();
+
+        return "$todo->title is Successfully Updated";
     }
 
     public function search(Request $request)

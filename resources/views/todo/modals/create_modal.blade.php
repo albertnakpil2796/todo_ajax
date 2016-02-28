@@ -14,7 +14,7 @@
           </div>
           <div class="span5">
             <label>Description</label>
-            <textarea rows="4" class="form-control" name="description"required></textarea>
+            <textarea rows="4" class="form-control" name="description" required></textarea>
           </div>
       </div>
         <div class="modal-footer">
